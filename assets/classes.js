@@ -76,7 +76,7 @@ class HaelBomb{
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.stroke()
 		}else{
-			ctx.fillStyle="#00FF00"+(Math.floor(8*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(8*(this.bombhealth/this.bombmaxhealth)).toString(16)
+			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(32*(this.bombhealth/this.bombmaxhealth)).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.l2r, 0, 2 * Math.PI);
 			ctx.fill()
@@ -119,7 +119,8 @@ class HaelBomb{
 					if(fucker.health>=fucker.max_health){
 						continue;
 					}
-					fucker.health-=shit.damage
+					fucker.health-=shit.damage;
+					fucker.health_bar_show=30;
 					shit.bombhealth+=shit.damage
 					//console.log(shit.bombhealth)
 					if(fucker.health>fucker.max_health){

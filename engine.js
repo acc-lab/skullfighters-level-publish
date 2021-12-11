@@ -43,7 +43,7 @@ function loop(){
 	if(loaded && !DEATH){
 		//generates enemy
 		timing+=1;
-		castle.health+=.1
+
 		if ((re=levelFunction(wave, timing)) != -1)
 			army += re;
 
@@ -157,7 +157,7 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 30);
+setInterval(loop, 25);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 
