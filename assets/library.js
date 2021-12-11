@@ -38,14 +38,13 @@ var Library = new LibraryCls({
 			}
 		), 1, 300, 300);
 	}),
-	
+
 	"haeler": new SpawningCard("icon_of_haeler",400,150,function(){
-		new_skull(x=0,y=400,func_=skeleton_haeler_walking_func_________(250,
+		new_skull(x=0,y=400,func_=skeleton_haeler_walking_func_________(100,
 			shoot_func=function(l_l,l_r){
 		        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
-		        new_haelbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,1,100,1500)
+		        new_haelbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,2,randomize(60, 80),60)
 	    	}
-			,4,3,8,4,500,500
 		),1,600,400)
 	})
 

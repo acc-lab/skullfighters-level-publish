@@ -45,7 +45,7 @@ class Chop{
 	}
 }
 class HaelBomb{
-	constructor(x,y, team, vx, vy ,ax , ay ,damage,haelrange ,bombhealth){
+	constructor(x,y, team, vx, vy ,ax , ay ,damage, healrange ,bombhealth){
 		this.x=x;
 		this.y=y;
 		this.team=team;
@@ -58,7 +58,7 @@ class HaelBomb{
 		this.radius=5;
 		this.lr=5;
 		this.l2r=5;
-		this.haelrange=haelrange;
+		this.healrange=healrange;
 		this.bombmaxhealth=bombhealth;
 		this.bombhealth=bombhealth;
 		this.exposed=false;
@@ -76,7 +76,7 @@ class HaelBomb{
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.stroke()
 		}else{
-			ctx.fillStyle="#00FF00"+(Math.floor(8*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(8*(this.bombhealth/this.bombmaxhealth)).toString(16)
+			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(32*(this.bombhealth/this.bombmaxhealth)).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.l2r, 0, 2 * Math.PI);
 			ctx.fill()
@@ -93,42 +93,43 @@ class HaelBomb{
 		this.vx+=this.ax*3/100;
 		this.vy+=this.ay*3/100;
 	}
-	static frameAction(shitni,fuckers){
-		let shit=shitni.instance
-		shit.update()
-		shit.drawSelf("4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4u4")
-		if(!shit.exposed){
-			shit.exposed=shit.checkIfTouched(fuckers)
+	static frameAction(healbombgameobject,fuckers){
+		let healbomb=healbombgameobject.instance
+		healbomb.update()
+		healbomb.drawSelf()
+		if(!healbomb.exploded){
+			healbomb.exploded=healbomb.checkIfTouched(fuckers)
 		}
-		if(shit.exposed){
-			shit.deathstep++;
-			//console.log(shit.radius)
-			shit.l2r=shit.lr
-			shit.lr=shit.radius
-			if(shit.deathstep>500){
-				shit.radius=shit.haelrange
+		if(healbomb.exploded){
+			healbomb.deathstep++;
+			//console.log(healbomb.radius)
+			healbomb.l2r=healbomb.lr
+			healbomb.lr=healbomb.radius
+			if(healbomb.deathstep>500){
+				healbomb.radius=healbomb.healrange
 			}else{
-				shit.radius=shit.haelrange*(Math.exp(shit.deathstep/5-5)/(Math.exp(shit.deathstep/5-5)+1))
+				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.deathstep/5-5)/(Math.exp(healbomb.deathstep/5-5)+1))
 			}
 			for(let fuckerindex in fuckers){
 				let fucker=fuckers[fuckerindex]
-				if(shit.team!=fucker.team){
+				if(healbomb.team!=fucker.team){
 					continue;
 				}
-				if(Math.abs(shit.x-fucker.x)<=shit.radius){
+				if(Math.abs(healbomb.x-fucker.x)<=healbomb.radius){
 					if(fucker.health>=fucker.max_health){
 						continue;
 					}
-					fucker.health-=shit.damage
-					shit.bombhealth+=shit.damage
-					//console.log(shit.bombhealth)
+					fucker.health-=healbomb.damage;
+					fucker.health_bar_show=30;
+					healbomb.bombhealth+=healbomb.damage
+					//console.log(healbomb.bombhealth)
 					if(fucker.health>fucker.max_health){
-						shit.bombhealth-=fucker.max_health-fucker.health
+						healbomb.bombhealth-=fucker.max_health-fucker.health
 						fucker.health=fucker.max_health
 					}
-					if(shit.bombhealth<=0){
-						fucker.health+=shit.bombhealth
-						shitni.removeSelf()
+					if(healbomb.bombhealth<=0){
+						fucker.health+=healbomb.bombhealth
+						healbombgameobject.removeSelf()
 						return -1;
 					}
 				}
@@ -461,9 +462,9 @@ function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25
 	narrow=new Arrow(x_, y_, team_, vx_, vy_, ax_, ay_, damage_);
 	GameObjects.arrows.push(narrow);
 }
-function new_haelbomb(x_,y_,team_,vx_,vy_,ax_,ay_,hael_,haelrange_,bombhaelth_){
-	nhaelbomb=new HaelBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-hael_,haelrange_,bombhaelth_)
-	GameObjects.haelbomb.push(nhaelbomb)
+function new_healbomb(x_,y_,team_,vx_,vy_,ax_,ay_,heal_,healrange_,bombhaelth_){
+	nhealbomb=new HaelBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-heal_,healrange_,bombhaelth_)
+	GameObjects.healbomb.push(nhealbomb)
 }
 function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
 	//vx_,vy_: initial bullet's velocity

@@ -1,5 +1,5 @@
-function skeleton_haeler_walking_func_________(reload=400,
-    shoot_func=function(l_l,l_r){
+function skeleton_haeler_walking_func_(reload=400,
+    shoot_func=function(lead_l,lead_r){
         let dist=Math.abs(this.x-(this.team==1?lead_l:lead_r))
         new_haelbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,50000,500,50)
     },
@@ -12,7 +12,7 @@ function skeleton_haeler_walking_func_________(reload=400,
 	attack_radius = 20
 ){
     //i forgor how to code js
-    function inner_one_dont_fking_care_its_name_not_gonna_let_you_use(E,W,init){
+    function sleleton_healer_walking(E,W,init){
         if(init=="INIT"){
             this.attack_radius=attack_radius;
             this.skipNeigborEnemies=true;
@@ -71,5 +71,5 @@ function skeleton_haeler_walking_func_________(reload=400,
             }
         }
     }
-    return inner_one_dont_fking_care_its_name_not_gonna_let_you_use;
+    return sleleton_healer_walking;
 }
