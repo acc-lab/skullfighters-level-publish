@@ -4,7 +4,7 @@ class GameObjectsCls{
 		this.arrows=[] //bow-skull's arrow
 		this.bullets=[] //police-skull's shotgun bullet
 		this.chops=[] //axe-skull's chop
-		this.haelbomb=[] //hael bomb
+		this.healbomb=[] //hael bomb
 	}
 }
 
