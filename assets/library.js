@@ -39,7 +39,7 @@ var Library = new LibraryCls({
 		), 1, 300, 300);
 	}),
 
-	"haeler": new SpawningCard("icon_of_haeler",400,150,function(){
+	"healer": new SpawningCard("icon_of_haeler",400,150,function(){
 		new_skull(x=0,y=400,func_=skeleton_haeler_walking_func_________(100,
 			shoot_func=function(l_l,l_r){
 		        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
