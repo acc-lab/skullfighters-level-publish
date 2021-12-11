@@ -44,7 +44,7 @@ class Chop{
 		}
 	}
 }
-class HaelBomb{
+class HealBomb{
 	constructor(x,y, team, vx, vy ,ax , ay ,damage, healrange ,bombhealth){
 		this.x=x;
 		this.y=y;
@@ -462,8 +462,8 @@ function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25
 	narrow=new Arrow(x_, y_, team_, vx_, vy_, ax_, ay_, damage_);
 	GameObjects.arrows.push(narrow);
 }
-function new_healbomb(x_,y_,team_,vx_,vy_,ax_,ay_,heal_,healrange_,bombhaelth_){
-	nhealbomb=new HaelBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-heal_,healrange_,bombhaelth_)
+function new_healbomb(x_,y_,team_,vx_,vy_,ax_,ay_,heal_,healrange_,bombhealth_){
+	nhealbomb=new HealBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-heal_,healrange_,bombhealth_)
 	GameObjects.healbomb.push(nhealbomb)
 }
 function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){

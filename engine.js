@@ -81,10 +81,10 @@ function loop(){
 			Chop.frameAction(chop, GameObjects.skulls);
 		}
 		
-		for(let i=0;i<GameObjects.haelbomb.length;i++){
-			haelbomb= new ObjectInstance("haelbomb",i)
+		for(let i=0;i<GameObjects.healbomb.length;i++){
+			healbomb= new ObjectInstance("healbomb",i)
 
-			i += HaelBomb.frameAction(haelbomb,GameObjects.skulls)
+			i += HealBomb.frameAction(healbomb,GameObjects.skulls)
 		}
 		//set all chops to 0. Every chop only survive for 1 frame
 		//for continuous attack, the attacker will spawn a chop attack every frame
