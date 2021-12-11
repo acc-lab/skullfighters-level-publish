@@ -54,7 +54,7 @@ class HaelBomb{
 		this.ax=ax;
 		this.ay=ay;
 		this.damage=damage;
-		this.deathstep=0;
+		this.tickafterexplode=0;
 		this.radius=5;
 		this.lr=5;
 		this.l2r=5;
@@ -71,7 +71,7 @@ class HaelBomb{
 		ctx.lineWidth=SCALE
 
 		ctx.beginPath();
-		if(this.deathstep==0){
+		if(this.tickafterexplode==0){
 			ctx.strokeStyle="#0F0F";
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
 			ctx.stroke()
@@ -85,7 +85,7 @@ class HaelBomb{
 		//hitbox is the sussy ball so no fking debug
 	}
 	update(){
-		if(this.deathstep>0){
+		if(this.tickafterexplode>0){
 			return
 		}
 		this.x+=this.vx*3/100;
@@ -101,14 +101,14 @@ class HaelBomb{
 			healbomb.exploded=healbomb.checkIfTouched(fuckers)
 		}
 		if(healbomb.exploded){
-			healbomb.deathstep++;
+			healbomb.tickafterexplode++;
 			//console.log(healbomb.radius)
 			healbomb.l2r=healbomb.lr
 			healbomb.lr=healbomb.radius
-			if(healbomb.deathstep>500){
+			if(healbomb.tickafterexplode>500){
 				healbomb.radius=healbomb.healrange
 			}else{
-				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.deathstep/5-5)/(Math.exp(healbomb.deathstep/5-5)+1))
+				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1))
 			}
 			for(let fuckerindex in fuckers){
 				let fucker=fuckers[fuckerindex]
