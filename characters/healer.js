@@ -11,7 +11,6 @@ function skeleton_healer_walking_func(reload=400,
 	rapid_attack_radius = 700,
 	attack_radius = 20
 ){
-    //i forgor how to code js
     function skeleton_healer_walking(E,W,init){
         if(init=="INIT"){
             this.attack_radius=attack_radius;
