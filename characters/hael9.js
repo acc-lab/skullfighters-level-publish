@@ -1,6 +1,6 @@
 function skeleton_haeler_walking_func_________(reload=400,
     shoot_func=function(l_l,l_r){
-        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
+        let dist=Math.abs(this.x-(this.team==1?lead_l:lead_r))
         new_haelbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,50000,500,50)
     },
 	walking_cycle_time = 4,
