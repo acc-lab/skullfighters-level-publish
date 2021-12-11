@@ -21,7 +21,7 @@ function skeleton_healer_walking_func(reload=400,
         //this.tick property records the animation cycle frame
         this.tick++;
 
-        //direction (sign 1000000000000 or sign -100000000000000)
+        //direction (1 or -1)
         dir=this.dir
 
         //healer-skull's costume movement
@@ -52,12 +52,10 @@ function skeleton_healer_walking_func(reload=400,
             this.cst="bow1"
         }
 
-        //if your fking teammate is still too far away,then skip the attack your teammate
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=E&&this.team==1)||(this.x-detect_radius>=W&&this.team==2))){
            this.tick=1; 
         }
 
-        //chicken attack!!!!
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay){this.cst="bow1"}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+2){this.cst="bow2"}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+6){this.cst="bow3"}
