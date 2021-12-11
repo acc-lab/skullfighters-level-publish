@@ -1,7 +1,7 @@
 function skeleton_healer_walking_func(reload=400,
     shoot_func=function(lead_l,lead_r){
         let dist=Math.abs(this.x-(this.team==1?lead_l:lead_r))
-        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,50000,500,50)
+        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,50000,100,50)
     },
 	walking_cycle_time = 4,
 	walking_cycle_count = 3,
@@ -12,7 +12,7 @@ function skeleton_healer_walking_func(reload=400,
 	attack_radius = 20
 ){
     //i forgor how to code js
-    function sleleton_healer_walking(E,W,init){
+    function skeleton_healer_walking(E,W,init){
         if(init=="INIT"){
             this.attack_radius=attack_radius;
             this.skipNeigborEnemies=true;
@@ -71,5 +71,5 @@ function skeleton_healer_walking_func(reload=400,
             }
         }
     }
-    return sleleton_healer_walking;
+    return skeleton_healer_walking;
 }
