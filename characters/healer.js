@@ -1,7 +1,7 @@
 function skeleton_healer_walking_func(reload=400,
-    shoot_func=function(lead_l,lead_r){
-        let dist=Math.abs(this.x-(this.team==1?lead_l:lead_r))
-        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,50000,100,50)
+    shoot_func=function(l_l,l_r){
+        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
+        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,2,randomize(60, 80),60)
     },
 	walking_cycle_time = 4,
 	walking_cycle_count = 3,
@@ -27,40 +27,41 @@ function skeleton_healer_walking_func(reload=400,
         if(this.tick<=4*walking_cycle_time*walking_cycle_count){
             if(this.tick%(4*walking_cycle_time)==1){
                 if(this.tick==1){
-                    this.cst="bow1";
+                    this.cst="healer_idle";
                 }else{
-                    this.cst="bow1";
-                    this.x+=2*dir;
+                    this.cst="healer_idle";
+                    //this.x+=2*dir;
                 }
             }
     		if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time){
-				this.cst="bow2_walk";
-				this.x+=2*dir;
+				this.cst="healer2_walk";
+				//this.x+=2*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time*2){
-				this.cst="bow3_walk";
-				this.x+=4*dir;
+				this.cst="healer3_walk";
+				//this.x+=4*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==(1+walking_cycle_time*3)%(4*walking_cycle_time)){
-				this.cst="bow4_walk";
-				this.x+=6*dir;
+				this.cst="healer4_walk";
+				//this.x+=6*dir;
 			}
             
         }
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1){
-            this.cst="bow1"
+            this.cst="healer_idle"
+			//this.x+=3*dir;
         }
 
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=E&&this.team==1)||(this.x-detect_radius>=W&&this.team==2))){
            this.tick=1; 
         }
 
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay){this.cst="bow1"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+2){this.cst="bow2"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+6){this.cst="bow3"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+10){this.cst="bow4"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+11){this.cst="bow1";/*cu(sto)m shot*/this.shoot_func=shoot_func;this.shoot_func(E,W)}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+11+reload+4){
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay){this.cst="healer_idle"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+7){this.cst="healer2"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+13){this.cst="healer3"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+23){this.cst="healer4"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+25){this.cst="healer_idle";/*cu(sto)m shot*/this.shoot_func=shoot_func;this.shoot_func(E,W)}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+25+reload+4){
             if((this.team==1&&this.x+rapid_attack_radius>=E)||(this.team==2&&this.x-rapid_attack_radius<=W)){
                 this.tick=4*walking_cycle_count*walking_cycle_time+1;
             }else{

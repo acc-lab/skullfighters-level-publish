@@ -157,12 +157,11 @@ function loop(){
 }
 
 //set mainloop
-setInterval(loop, 25);
+setInterval(loop, 180);
 
 // setTimeout(function(){wave=4;timing=0; army=2100;}, 100);
 
 /*
-(Debug use)
 
 setTimeout(function(){
 	function printNumberA(number_txt, x, y, size, effect=0, width=10, align="left"){
@@ -191,6 +190,7 @@ setTimeout(function(){
 			}
 		}
 	}
-	printNumberA(Object.keys(store), 400, 200, 2, 0, 8, "center");
+	printNumberA(Object.keys(store), -100, 200, 2, 0, 8, "left");
 }, 100);
+
 */
