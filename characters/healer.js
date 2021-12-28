@@ -1,7 +1,7 @@
 function skeleton_healer_walking_func(reload=400,
     shoot_func=function(l_l,l_r){
         let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
-        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150,0,8/900*(150)**2,2,randomize(60, 80),60)
+        new_healbomb(this.x+16*this.dir,this.y-22,this.team,200*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*200,0,8/900*(200)**2,2,randomize(60, 80),60)
     },
 	walking_cycle_time = 4,
 	walking_cycle_count = 3,
@@ -30,20 +30,20 @@ function skeleton_healer_walking_func(reload=400,
                     this.cst="healer_idle";
                 }else{
                     this.cst="healer_idle";
-                    //this.x+=2*dir;
+                    this.x+=2*dir;
                 }
             }
     		if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time){
 				this.cst="healer2_walk";
-				//this.x+=2*dir;
+				this.x+=2*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time*2){
 				this.cst="healer3_walk";
-				//this.x+=4*dir;
+				this.x+=4*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==(1+walking_cycle_time*3)%(4*walking_cycle_time)){
 				this.cst="healer4_walk";
-				//this.x+=6*dir;
+				this.x+=6*dir;
 			}
             
         }
