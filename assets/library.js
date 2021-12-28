@@ -25,7 +25,7 @@ var Library = new LibraryCls({
 		), 1, 80, 120);
 	}),
 
-	"defender": new SpawningCard("icon_of_shield", 200, 0, function(){
+	"defender": new SpawningCard("icon_of_shield", 200, 100, function(){
 		new_skull(x=0, y=400, func_=skeleton_shield_walking, 1, 1800, 200);
 	}),
 
