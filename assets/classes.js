@@ -63,18 +63,16 @@ class HealBomb{
 		this.bombhealth=bombhealth;
 		this.exposed=false;
 	}
-	checkIfTouched(uslessskullfuckerlists){
+	checkIfTouched(skulls){
 		return this.y>=400;
 	}
-	drawSelf(nodebuff){
-		//what iss scale
+	drawSelf(debug){
 		ctx.lineWidth=SCALE
 
 		ctx.beginPath();
 		if(this.tickafterexplode==0){
-			ctx.strokeStyle="#0F0F";
-			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
-			ctx.stroke()
+			coDrawImage("heal-bomb", -1, this.x, this.y, 1, 0, 0, 4);
+
 		}else{
 			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(32*(this.bombhealth/this.bombmaxhealth)).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
@@ -82,7 +80,6 @@ class HealBomb{
 			ctx.fill()
 		}
 
-		//hitbox is the sussy ball so no fking debug
 	}
 	update(){
 		if(this.tickafterexplode>0){
@@ -93,12 +90,12 @@ class HealBomb{
 		this.vx+=this.ax*3/100;
 		this.vy+=this.ay*3/100;
 	}
-	static frameAction(healbombgameobject,fuckers){
+	static frameAction(healbombgameobject,skulls){
 		let healbomb=healbombgameobject.instance
 		healbomb.update()
 		healbomb.drawSelf()
 		if(!healbomb.exploded){
-			healbomb.exploded=healbomb.checkIfTouched(fuckers)
+			healbomb.exploded=healbomb.checkIfTouched(skulls)
 		}
 		if(healbomb.exploded){
 			healbomb.tickafterexplode++;
@@ -110,25 +107,25 @@ class HealBomb{
 			}else{
 				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1))
 			}
-			for(let fuckerindex in fuckers){
-				let fucker=fuckers[fuckerindex]
-				if(healbomb.team!=fucker.team){
+			for(let index in skulls){
+				let skull=skulls[index]
+				if(healbomb.team!=skull.team){
 					continue;
 				}
-				if(Math.abs(healbomb.x-fucker.x)<=healbomb.radius){
-					if(fucker.health>=fucker.max_health){
+				if(Math.abs(healbomb.x-skull.x)<=healbomb.radius){
+					if(skull.health>=skull.max_health){
 						continue;
 					}
-					fucker.health-=healbomb.damage;
-					fucker.health_bar_show=30;
+					skull.health-=healbomb.damage;
+					skull.health_bar_show=30;
 					healbomb.bombhealth+=healbomb.damage
-					//console.log(healbomb.bombhealth)
-					if(fucker.health>fucker.max_health){
-						healbomb.bombhealth-=fucker.max_health-fucker.health
-						fucker.health=fucker.max_health
+
+					if(skull.health>skull.max_health){
+						healbomb.bombhealth-=skull.max_health-skull.health
+						skull.health=skull.max_health
 					}
 					if(healbomb.bombhealth<=0){
-						fucker.health+=healbomb.bombhealth
+						skull.health+=healbomb.bombhealth
 						healbombgameobject.removeSelf()
 						return -1;
 					}

@@ -30,26 +30,26 @@ function skeleton_healer_walking_func(reload=400,
                     this.cst="healer_idle";
                 }else{
                     this.cst="healer_idle";
-                    //this.x+=2*dir;
+                    this.x+=2*dir;
                 }
             }
     		if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time){
 				this.cst="healer2_walk";
-				//this.x+=2*dir;
+				this.x+=2*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==1+walking_cycle_time*2){
 				this.cst="healer3_walk";
-				//this.x+=4*dir;
+				this.x+=4*dir;
 			}
 			if(this.tick%(4*walking_cycle_time)==(1+walking_cycle_time*3)%(4*walking_cycle_time)){
 				this.cst="healer4_walk";
-				//this.x+=6*dir;
+				this.x+=6*dir;
 			}
             
         }
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1){
             this.cst="healer_idle"
-			//this.x+=3*dir;
+			this.x+=3*dir;
         }
 
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=E&&this.team==1)||(this.x-detect_radius>=W&&this.team==2))){
