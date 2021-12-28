@@ -49,7 +49,7 @@ function skeleton_healer_walking_func(reload=400,
         }
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1){
             this.cst="healer_idle"
-			//this.x+=3*dir;
+			this.x+=3*dir;
         }
 
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay && ((this.x+detect_radius<=E&&this.team==1)||(this.x-detect_radius>=W&&this.team==2))){
