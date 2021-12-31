@@ -4,6 +4,7 @@ var cursor_y;
 
 //cursor's click
 var new_cursor_click=false;
+var new_cursor_unclick=false;
 
 //if the mouse is moved, update new cursor coordinate
 document.onmousemove=function(e) {
@@ -14,4 +15,7 @@ document.onmousemove=function(e) {
 //if mouse down, set cursor_click to true, so in the next game tick the mainloop function can detect
 cv.addEventListener('mousedown',function(){
 	new_cursor_click=true;
+})
+cv.addEventListener('mouseup',function(){
+	new_cursor_unclick=true;
 })

@@ -37,9 +37,20 @@ var spots_ID = ["chopper", "archer", "defender", "police", "healer"];
 //ID to Spot() object
 var spots = toSpots(spots_ID);
 
+//testing
+button=new ButtonHigh(450,200,"start button",function(){console.log("I GET PRESSED!!!! FUCK YOUUU");DEATH=false})
+DEATH=true
+
+
 /*MAINLOOP*/
 function loop(){
 	//if the images are all loaded, and the game hasn't stop(DEATH) yet
+	//clear all screen
+	clearScreen();
+	if(loaded && DEATH){
+		//console.log()
+		button.frameAction();
+	}
 	if(loaded && !DEATH){
 		//generates enemy
 		timing+=1;
@@ -47,8 +58,7 @@ function loop(){
 		if ((re=levelFunction(wave, timing)) != -1)
 			army += re;
 
-		//clear all screen
-		clearScreen();
+
 
 		for(i=0;i<GameObjects.skulls.length;i++){
 			skull = new ObjectInstance("skulls", i);
@@ -114,7 +124,7 @@ function loop(){
 			}
 		}
 				
-		new_cursor_click = false;
+		//new_cursor_click = false;
 
 		//wave text
 		coDrawImage('wave_text', -1, 268, 7, 1, 0, 0, 2.2);
@@ -154,6 +164,8 @@ function loop(){
 			}
 		}
 	}
+	new_cursor_click=false
+	new_cursor_unclick=false
 }
 
 //set mainloop
