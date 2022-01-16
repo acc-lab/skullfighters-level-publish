@@ -45,7 +45,7 @@ class Chop{
 	}
 }
 class HealBomb{
-	constructor(x,y, team, vx, vy ,ax , ay ,damage, healrange ,bombhealth){
+	constructor(x, y, team, vx, vy, ax, ay, damage, healRange, health, expiringSpeed){
 		this.x=x;
 		this.y=y;
 		this.team=team;
@@ -56,14 +56,13 @@ class HealBomb{
 		this.damage=damage;
 		this.tickafterexplode=0;
 		this.radius=5;
-		this.lr=5;
-		this.l2r=5;
-		this.healrange=healrange;
-		this.bombmaxhealth=bombhealth;
-		this.bombhealth=bombhealth;
+		this.healRange=healRange;
+		this.maxHealth=health;
+		this.health=health;
+		this.expiringSpeed=expiringSpeed;
 		this.exposed=false;
 	}
-	checkIfTouched(skulls){
+	checkIfTouched(){
 		return this.y>=400;
 	}
 	drawSelf(debug){
@@ -74,9 +73,8 @@ class HealBomb{
 			coDrawImage("heal-bomb", -1, this.x, this.y, 1, 0, 0, 4);
 
 		}else{
-			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.bombhealth/this.bombmaxhealth))<16?"0":"")+Math.floor(32*(this.bombhealth/this.bombmaxhealth)).toString(16)
+			ctx.fillStyle="#00FF00"+(Math.floor(32*(this.health/this.maxHealth))<16?"0":"")+Math.floor(32*(this.health/this.maxHealth)).toString(16)
 			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.radius, 0, 2 * Math.PI);
-			ctx.arc(SCALE*this.x,SCALE*this.y, SCALE*this.l2r, 0, 2 * Math.PI);
 			ctx.fill()
 		}
 
@@ -91,24 +89,33 @@ class HealBomb{
 		this.vy+=this.ay*3/100;
 	}
 	static frameAction(healbombgameobject,skulls){
-		let healbomb=healbombgameobject.instance
-		healbomb.update()
-		healbomb.drawSelf()
+		let healbomb=healbombgameobject.instance;
+
+		healbomb.update();
+		healbomb.drawSelf();
+
 		if(!healbomb.exploded){
-			healbomb.exploded=healbomb.checkIfTouched(skulls)
+			healbomb.exploded=healbomb.checkIfTouched();
 		}
+
 		if(healbomb.exploded){
-			healbomb.tickafterexplode++;
-			//console.log(healbomb.radius)
-			healbomb.l2r=healbomb.lr
-			healbomb.lr=healbomb.radius
+			healbomb.tickafterexplode++ ;
+
 			if(healbomb.tickafterexplode>500){
-				healbomb.radius=healbomb.healrange
+				healbomb.radius=healbomb.healRange;
 			}else{
-				healbomb.radius=healbomb.healrange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1))
+				healbomb.radius=healbomb.healRange*(Math.exp(healbomb.tickafterexplode/5-5)/(Math.exp(healbomb.tickafterexplode/5-5)+1));
 			}
+
+			healbomb.health -= healbomb.expiringSpeed;
+
+			if(healbomb.health<=0){
+				healbombgameobject.removeSelf();
+				return -1;
+			}
+
 			for(let index in skulls){
-				let skull=skulls[index]
+				let skull=skulls[index];
 				if(healbomb.team!=skull.team){
 					continue;
 				}
@@ -118,15 +125,15 @@ class HealBomb{
 					}
 					skull.health-=healbomb.damage;
 					skull.health_bar_show=30;
-					healbomb.bombhealth+=healbomb.damage
+					healbomb.health+=healbomb.damage;
 
 					if(skull.health>skull.max_health){
-						healbomb.bombhealth-=skull.max_health-skull.health
-						skull.health=skull.max_health
+						healbomb.health-=skull.max_health-skull.health;
+						skull.health=skull.max_health;
 					}
-					if(healbomb.bombhealth<=0){
-						skull.health+=healbomb.bombhealth
-						healbombgameobject.removeSelf()
+					if(healbomb.health<=0){
+						skull.health+=healbomb.health;
+						healbombgameobject.removeSelf();
 						return -1;
 					}
 				}
@@ -372,30 +379,7 @@ class Skull{
 		
 		if(!this.dying && (this.health_bar_show>0)){
 			this.health_bar_show-=1;
-			
-			ctx.save();
-			
-			if(this.health_bar_show<=10){
-				ctx.globalAlpha=(this.health_bar_show)/10;
-			}
-			
-			ctx.beginPath();
-			
-			ctx.lineWidth=SCALE*4;
-			ctx.strokeStyle="#393939";
-			
-			ctx.moveTo(SCALE*(this.x-13.5),SCALE*(this.y-60));
-			ctx.lineTo(SCALE*(this.x+13.5),SCALE*(this.y-60));
-			ctx.stroke();
-			
-			ctx.beginPath();
-			
-			ctx.strokeStyle="#ffffff";
-			ctx.moveTo(SCALE*(this.x-13.5),SCALE*(this.y-60));
-			ctx.lineTo(SCALE*(this.x-13.5+(this.health/this.max_health)*27),SCALE*(this.y-60));
-			ctx.stroke();
-			
-			ctx.restore();
+			drawHealthBar(this.x,this.y-60,27,4,this.health,this.max_health,"#FFFFFF","#393939")
 		}
 	}
 	static frameAction(skull, skulls){
@@ -447,6 +431,29 @@ class Skull{
 	}
 }
 
+class Building{
+	constructor(x,y,func,team,health,defense,cst){
+		this.x=x;
+		this.y=y;
+		this.health=health;
+		this.max_health=health;
+		this.cstFunc=func;
+		this.defense=defense;
+		this.cst="b-idle";
+		this.tick=0;
+		this.dir=team==1?1:-1;
+
+		this.cstFunc(null,null,"INIT");
+	}
+	drawSelf(){
+		coDrawImage(this.cst, this.team, this.x, this.y, this.dir, (this.effect>0), this.dying_effect, 2, this.rect);
+
+	}
+	frameAction(){
+		this.drawSelf()
+	}
+}
+
 function new_chop(x_, y_, team_, damage_=10){
 	nchop=new Chop(x_, y_, team_, damage_);
 	GameObjects.chops.push(nchop);
@@ -459,10 +466,12 @@ function new_arrow(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25
 	narrow=new Arrow(x_, y_, team_, vx_, vy_, ax_, ay_, damage_);
 	GameObjects.arrows.push(narrow);
 }
-function new_healbomb(x_,y_,team_,vx_,vy_,ax_,ay_,heal_,healrange_,bombhealth_){
-	nhealbomb=new HealBomb(x_,y_,team_,vx_,vy_,ax_,ay_,-heal_,healrange_,bombhealth_)
-	GameObjects.healbomb.push(nhealbomb)
+
+function new_healbomb(x_, y_, team_, vx_, vy_, ax_, ay_, heal_, healRange_, health_, expiringSpeed_){
+	nhealbomb=new HealBomb(x_ ,y_, team_, vx_, vy_, ax_, ay_, -heal_, healRange_, health_, expiringSpeed_);
+	GameObjects.healbomb.push(nhealbomb);
 }
+
 function new_bullet(x_, y_, team_, vx_=11, vy_=-0.5, ax_=0.2, ay_=0.1, damage_=25){
 	//vx_,vy_: initial bullet's velocity
 	//ax_,ay_: bullet's acceleration (apparently you can have different acceleration for different bullets)
@@ -475,6 +484,6 @@ function new_skull(x_=0, y_=400, func_=skeleton_walking, team_=1, health_=100, v
 	//func_: what the skull do every single screen refresh, that decides the skull's AI, movements, animations and attacks
 	//value_: only for Team 1. The property you can get as return if the skull's out of the screen and they survived
 
-	nskull=new Skull(x_, y_, func_, team_, health_, value_);
+	nskull=new Skull(x_ + randomize(-10, 10), y_, func_, team_, health_, value_);
 	GameObjects.skulls.push(nskull);
 }

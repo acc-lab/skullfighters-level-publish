@@ -25,7 +25,7 @@ var Library = new LibraryCls({
 		), 1, 80, 120);
 	}),
 
-	"defender": new SpawningCard("icon_of_shield", 200, 150, function(){
+	"defender": new SpawningCard("icon_of_shield", 200, 180, function(){
 		new_skull(x=0, y=400, func_=skeleton_shield_walking, 1, 1800, 200);
 	}),
 
@@ -39,13 +39,13 @@ var Library = new LibraryCls({
 		), 1, 300, 300);
 	}),
 
-	"healer": new SpawningCard("icon_of_healer",400, 150,function(){
-		new_skull(x=0,y=400,func_=skeleton_healer_walking_func(100,
+	"healer": new SpawningCard("icon_of_healer", 400, 150, function(){
+		new_skull(x=0,y=400,func_=skeleton_healer_walking_func(80,
 			shoot_func=function(l_l,l_r){
-		        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
-		        new_healbomb(this.x+16*this.dir,this.y-22,this.team,150*this.dir/1.2,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150*1.2,0,8/900*(150)**2,2,randomize(60, 80),60)
+		        let dist = Math.abs(this.x-(this.team==1?l_l:l_r));
+		        new_healbomb(this.x+16*this.dir, this.y-22, this.team, 150*this.dir, (22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150, 0, 8/900*(150)**2, 1, randomize(60, 80), 150, 0.25);
 	    	}
-		),1,600,400)
+		), 1, 400, 400)
 	})
 
 });

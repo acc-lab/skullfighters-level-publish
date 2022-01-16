@@ -1,7 +1,7 @@
 function skeleton_healer_walking_func(reload=400,
     shoot_func=function(l_l,l_r){
-        let dist=Math.abs(this.x-(this.team==1?l_l:l_r))
-        new_healbomb(this.x+16*this.dir,this.y-22,this.team,200*this.dir,(22/Math.max(dist,15)-4*Math.max(dist,15)/900)*200,0,8/900*(200)**2,2,randomize(60, 80),60)
+        let dist = Math.abs(this.x-(this.team==1?l_l:l_r));
+        new_healbomb(this.x+16*this.dir, this.y-22, this.team, 150*this.dir, (22/Math.max(dist,15)-4*Math.max(dist,15)/900)*150, 0, 8/900*(150)**2, 0.2, randomize(60, 80), 150, 0.25);
     },
 	walking_cycle_time = 4,
 	walking_cycle_count = 3,
@@ -58,10 +58,10 @@ function skeleton_healer_walking_func(reload=400,
 
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay){this.cst="healer_idle"}
         if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+7){this.cst="healer2"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+13){this.cst="healer3"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+23){this.cst="healer4"}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+25){this.cst="healer_idle";/*cu(sto)m shot*/this.shoot_func=shoot_func;this.shoot_func(E,W)}
-        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+25+reload+4){
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+14){this.cst="healer3"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+21){this.cst="healer4"}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+28){this.cst="healer_idle";/*custom shot*/this.shoot_func=shoot_func;this.shoot_func(E,W)}
+        if(this.tick==4*walking_cycle_time*walking_cycle_count+1+full_walking_cycle_delay+before_attack_delay+28+reload+12){
             if((this.team==1&&this.x+rapid_attack_radius>=E)||(this.team==2&&this.x-rapid_attack_radius<=W)){
                 this.tick=4*walking_cycle_count*walking_cycle_time+1;
             }else{

@@ -20,28 +20,7 @@ class Castle{
         coDrawImage('castle', -1, 30, 400, 1, this.effect>0, 0, 1);
     
         //draw health bar of castle
-        if(this.health>0){
-            ctx.beginPath();
-            ctx.lineWidth=SCALE*8;
-            ctx.strokeStyle="#ffffff";
-            ctx.moveTo(SCALE*5, SCALE*320);
-            ctx.lineTo(SCALE*(5+this.health/this.maxHealth*50), SCALE*320);
-            ctx.stroke();
-    
-            ctx.beginPath();
-            ctx.moveTo(SCALE*(5+this.health/this.maxHealth*50), SCALE*320);
-            ctx.lineTo(SCALE*55, SCALE*320);
-            ctx.strokeStyle="#393939";
-            ctx.stroke();
-        }else{
-            ctx.lineWidth=SCALE*8;
-            
-            ctx.beginPath();
-            ctx.moveTo(SCALE*5, SCALE*320);
-            ctx.lineTo(SCALE*55, SCALE*320);
-            ctx.strokeStyle="#393939";
-            ctx.stroke();
-        }
+        drawHealthBar(5,320,50,8,this.health,this.maxHealth,"#FFFFFF","#393939","LEFT");
         
         ctx.lineWidth=1;
     
